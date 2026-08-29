@@ -4,7 +4,7 @@ import './App.css'
 import projectsData from './data/projects.json'
 
 function App() {
-  // Estado para busca (opcional, mas os alunos vão amar)
+  // Estado para busca 
   const [search, setSearch] = useState('')
 
   const filteredProjects = projectsData.filter(p => 
