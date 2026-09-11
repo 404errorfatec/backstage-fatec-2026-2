@@ -1,0 +1,8 @@
+{
+    "name": "gestao-indicadores",
+    "description": "Projeto de gestao dos indicadores de agua",
+    "dependencies": {
+        "react" :"19.3.0",
+        "express":"5.2.1"
+    }
+}
