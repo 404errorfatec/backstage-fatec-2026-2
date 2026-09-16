@@ -11,8 +11,15 @@ async function main() {
         const projectPath = path.join(MOCK_DIR, folder);
         const packagePath = path.join(projectPath, 'package.json');
 
-        const packageRaw = await fs.readFile(packagePath, 'utf-8');
-        const packageData = JSON.parse(packageRaw);
+        let packageData;
+        try {
+            const packageRaw = await fs.readFile(packagePath, 'utf-8');
+            packageData = JSON.parse(packageRaw);
+        } catch (err) {
+            console.warn(`Pulando "${folder}": Erro ao ler/parsear package.json (${err.message}) `);
+            continue;
+        }
+        
 
         const tags = Object.keys(packageData.dependencies || {})
 
@@ -24,7 +31,8 @@ async function main() {
 
         const score = calculateScore({ hasReadme, hasGitignore, hasTests});
 
-        console.log(`***\nLido: ${folder}`, `\nNome:`, packageData.name, 
+        console.log(`***\nLido: ${folder}`, 
+            `\nNome:`, packageData.name, 
             `\nDescrição:`, packageData.description, 
             `\nDependências:`, tags, 
             `\nArquivos:`,
