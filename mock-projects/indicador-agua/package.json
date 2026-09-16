@@ -6,7 +6,7 @@
         "express": "5.2.1",
         "chart.js": "4.4.1"
     },
-    "professor": "Fernanda BIano",
+    "professor": "Fernanda Biano",
     "image": "https://allondaa.sg-host.com/site/wp-content/uploads/2018/12/GestaoAgua.jpg",
     "repository": {
         "type": "git",

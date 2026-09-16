@@ -24,7 +24,14 @@ async function main() {
 
         const score = calculateScore({ hasReadme, hasGitignore, hasTests});
 
-        console.log(`***\nLido: ${folder}`, `\nNome:`, packageData.name, `\nDescrição:`, packageData.description, `\nDependências:`, tags, `\nArquivos:`, { hasReadme: hasReadme ? 'Possui' : 'Não Possui', hasGitignore: hasGitignore ? 'Possui' : 'Não Possui', hasTests: hasTests ? 'Possui' : 'Não Possui' }, `\nNota:`, score);
+        console.log(`***\nLido: ${folder}`, `\nNome:`, packageData.name, 
+            `\nDescrição:`, packageData.description, 
+            `\nDependências:`, tags, 
+            `\nArquivos:`,
+                { hasReadme: hasReadme ? 'Possui' : 'Não Possui',
+                    hasGitignore: hasGitignore ? 'Possui' : 'Não Possui', 
+                    hasTests: hasTests ? 'Possui' : 'Não Possui' }, 
+             `\nNota:`, score);
 
         projects.push({
             id: folder,
