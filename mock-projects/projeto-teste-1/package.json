@@ -1,8 +1,0 @@
-{
-    "name": "producao-borracha",
-    "description": "Analise fisico quimica propriedades borracha",
-    "dependencies": {
-        "react" :"19.3.0",
-        "express":"5.2.1"
-    }
-}

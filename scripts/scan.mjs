@@ -32,7 +32,11 @@ async function main() {
             description: packageData.description,
             tags: tags,
             score: score,
-            githubUrl: "#"
+            professor: packageData.professor || "Não informado",
+            image: packageData.image || "https://via.placeholder.com/400x300",
+            githubUrl: packageData.repository?.url || "#"
+
+
         });
     }
 
