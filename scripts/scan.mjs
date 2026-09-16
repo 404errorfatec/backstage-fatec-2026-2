@@ -10,24 +10,42 @@ async function main() {
     for (const folder of projectFolders){
         const projectPath = path.join(MOCK_DIR, folder);
         const packagePath = path.join(projectPath, 'package.json');
+        const requirementsPath = path.join(projectPath, 'requirements.txt');
 
-        let packageData;
-        try {
-            const packageRaw = await fs.readFile(packagePath, 'utf-8');
-            packageData = JSON.parse(packageRaw);
-        } catch (err) {
-            console.warn(`Pulando "${folder}": Erro ao ler/parsear package.json (${err.message}) `);
-            continue;
+        const hasPackageJson = await fileExists(packagePath);
+        const hasRequirements = await fileExists(requirementsPath);
+
+        let packageData = {};
+        let tags = [];
+
+        if (hasPackageJson){
+            try {
+                const packageRaw = await fs.readFile(packagePath, 'utf-8');
+                packageData = JSON.parse(packageRaw);
+                tags = Object.keys(packageData.dependencies || {});
+            } catch (err) {
+                console.warn(`Pulando "${folder}": Erro ao ler/parsear package.json (${err.message}) `);
+                continue;
+            }
+        } else if(hasRequirements) {
+            try{
+                tags = await parseRequirementsTxt(requirementsPath);
+                //sem package.json, procura metadados em outro lugar
+                packageData = await readProjectMeta(projectPath);
+            }catch (err) {
+                console.warn(`Pulando "${folder}": Erro ao ler requirements.txt (${err.message}) `);
+                continue;
+            }
+        } else {
+            console.warn(`Pulando "${folder}": nanhum package.json ou requirements.txt encontrado`);
+                continue;
         }
-        
-
-        const tags = Object.keys(packageData.dependencies || {})
-
+       
         //Verificadores
         const hasReadme = await fileExists(path.join(projectPath, 'README.md'));
         const hasGitignore = await fileExists(path.join(projectPath, '.gitignore'));
         const hasTests = await fileExists(path.join(projectPath,'tests')) ||
-        await fileExists(path.join(projectPath, '__tests__'));
+            await fileExists(path.join(projectPath, '__tests__'));
 
         const score = calculateScore({ hasReadme, hasGitignore, hasTests});
 
@@ -50,8 +68,6 @@ async function main() {
             professor: packageData.professor || "Não informado",
             image: packageData.image || "https://via.placeholder.com/400x300",
             githubUrl: packageData.repository?.url || "#"
-
-
         });
     }
 
@@ -62,6 +78,29 @@ async function main() {
     const outputPath = path.join('src', 'data', 'projects.json');
     await fs.writeFile(outputPath, JSON.stringify(projects, null, 2));
 }
+
+async function parseRequirementsTxt(filePath){
+    const raw = await fs.readFile(filePath, 'utf-8');
+    return raw
+        .split ('\n')
+        .map (line => line.trim())
+        .filter (line => line && !line.startsWith('#')) //ignora vazias e comentários
+        .map(line => line.split(/[=<>~!]/)[0].trim()) //remove versão
+        .filter(Boolean);
+}
+
+async function readProjectMeta(filePath){
+   //Fallback: procura um arquivo tipo project.json com nome/descrição/professor
+   //requirements.txt não possui estes metodos
+   const metaPath = path.join(projectPath, 'project.json');
+   if(await fileExists(metaPath)){
+    const raw = await fs.readFile(metaPath, 'utf-8');
+    return JSON.parse(raw);
+   }
+   return {};
+}
+
+
 
 async function fileExists(filePath){
     try {
