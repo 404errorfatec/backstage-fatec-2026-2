@@ -38,6 +38,10 @@ async function main() {
 
     console.log('\n***Relatório de Repositórios***');
     console.log(projects);
+
+    //Gravando arquivo em scr/data/projects.json
+    const outputPath = path.join('src', 'data', 'projects.json');
+    await fs.writeFile(outputPath, JSON.stringify(projects, null, 2));
 }
 
 async function fileExists(filePath){

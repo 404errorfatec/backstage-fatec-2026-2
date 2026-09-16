@@ -1,20 +1,24 @@
 [
   {
-    "id": "1",
-    "title": "Sistema de Gestão de Estoque",
-    "professor": "Anderson Ignacio",
-    "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
-    "tags": ["React", "Logística"],
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400",
+    "id": "projeto-teste-1",
+    "title": "producao-borracha",
+    "description": "Analise fisico quimica propriedades borracha",
+    "tags": [
+      "react",
+      "express"
+    ],
+    "score": 80,
     "githubUrl": "#"
   },
   {
-    "id": "2",
-    "title": "Plataforma de Monitoramento de Efluentes",
-    "professor": "Dr. Silva",
-    "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
-    "tags": ["IoT", "Node.js"],
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400",
+    "id": "projeto-teste-2",
+    "title": "gestao-indicadores",
+    "description": "Projeto de gestao dos indicadores de agua",
+    "tags": [
+      "react",
+      "express"
+    ],
+    "score": 50,
     "githubUrl": "#"
   }
 ]
