@@ -1,5 +1,22 @@
 [
   {
+    "id": "Cidade_sem_buracos-main",
+    "title": "cidade_sem_buracos",
+    "description": "Sistema web mobile-first para registro de buracos com foto, localizacao e persistencia em SQLite.",
+    "tags": [
+      "better-sqlite3",
+      "dotenv",
+      "express",
+      "multer"
+    ],
+    "conformity": {
+      "readme": true,
+      "gitignore": true,
+      "tests": true
+    },
+    "score": 100
+  },
+  {
     "id": "gestao-estoque",
     "title": "gestao-estoque",
     "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
