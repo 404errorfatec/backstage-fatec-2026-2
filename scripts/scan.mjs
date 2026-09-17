@@ -89,7 +89,7 @@ async function parseRequirementsTxt(filePath){
         .filter(Boolean);
 }
 
-async function readProjectMeta(filePath){
+async function readProjectMeta(projectPath){
    //Fallback: procura um arquivo tipo project.json com nome/descrição/professor
    //requirements.txt não possui estes metodos
    const metaPath = path.join(projectPath, 'project.json');
