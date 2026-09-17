@@ -1,20 +1,68 @@
 [
   {
     "id": "1",
-    "title": "Sistema de Gestão de Estoque",
-    "professor": "Anderson Ignacio",
-    "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
-    "tags": ["React", "Logística"],
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400",
-    "githubUrl": "#"
+    "title": "calculadora-web",
+    "description": "Calculadora Web com histórico salvo em MySQL (Node.js + Express)",
+    "professor": "Orientador a definir",
+    "tags": [
+      "Node.js",
+      "Body-parser",
+      "Cors",
+      "Express"
+    ],
+    "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=400",
+    "githubUrl": "#",
+    "metrics": {
+      "score": 50,
+      "conformity": {
+        "readme": true,
+        "gitignore": false,
+        "tests": false
+      }
+    }
   },
   {
     "id": "2",
-    "title": "Plataforma de Monitoramento de Efluentes",
-    "professor": "Dr. Silva",
-    "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
-    "tags": ["IoT", "Node.js"],
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400",
-    "githubUrl": "#"
+    "title": "Conversor_de_moedas",
+    "description": "Descrição não fornecida.",
+    "professor": "Orientador a definir",
+    "tags": [
+      "Java/Maven",
+      "Conversor_Moeda",
+      "Spring-boot-starter-parent",
+      "Spring-boot-starter-web"
+    ],
+    "image": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&q=80&w=400",
+    "githubUrl": "#",
+    "metrics": {
+      "score": 75,
+      "conformity": {
+        "readme": true,
+        "gitignore": true,
+        "tests": false
+      }
+    }
+  },
+  {
+    "id": "3",
+    "title": "gerar_senhas_java_spring",
+    "description": "Descrição não fornecida.",
+    "professor": "Orientador a definir",
+    "tags": [
+      "Java/Maven",
+      "Spring-boot-starter-parent",
+      "Painel-senhas",
+      "Spring-boot-starter-web"
+    ],
+    "image": "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?auto=format&fit=crop&q=80&w=400",
+    "githubUrl": "#",
+    "metrics": {
+      "score": 25,
+      "conformity": {
+        "readme": false,
+        "gitignore": false,
+        "tests": false
+      }
+    }
   }
 ]
