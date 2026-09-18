@@ -2,10 +2,14 @@
   {
     "id": "1",
     "title": "Sistema de Gestão de Estoque",
-    "professor": "Anderson Ignacio",
+    "professor": "Anderson",
     "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
-    "tags": ["React", "Logística"],
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400",
+    "tags": [
+      "React",
+      "React-dom",
+      "Tailwindcss"
+    ],
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=400",
     "githubUrl": "#"
   },
   {
@@ -13,8 +17,11 @@
     "title": "Plataforma de Monitoramento de Efluentes",
     "professor": "Dr. Silva",
     "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
-    "tags": ["IoT", "Node.js"],
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400",
+    "tags": [
+      "Express",
+      "Socket.io"
+    ],
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=400",
     "githubUrl": "#"
   }
 ]

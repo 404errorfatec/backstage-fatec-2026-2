@@ -1,0 +1,9 @@
+{
+  "name": "Sistema de Gestão de Estoque",
+  "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
