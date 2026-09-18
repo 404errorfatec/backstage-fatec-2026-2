@@ -1,0 +1,8 @@
+{
+  "name": "Plataforma de Monitoramento de Efluentes",
+  "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
+  "dependencies": {
+    "express": "^4.18.0",
+    "socket.io": "^4.7.0"
+  }
+}
