@@ -74,9 +74,10 @@ backstage-fatec/
 └── vite.config.js
 ```
 
-## Próximos passos sugeridos (ver roadmap)
+## Membros do grupo
 
-- Expor `scan.mjs` como uma rota de API REST (`POST /scan`) para disparar pelo
-  frontend em vez do terminal.
-- Adicionar um webhook do GitHub para re-escanear automaticamente a cada push.
-- Trocar o JSON por SQLite para guardar histórico de notas ao longo do tempo.
+- Cauê Vinícius Silva
+- Ryan Moscardini
+- Miguel de Paula Arantes
+- Luciano Peixoto
+- Felipe Oliveira
