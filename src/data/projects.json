@@ -1,20 +1,49 @@
 [
   {
-    "id": "1",
-    "title": "Sistema de Gestão de Estoque",
-    "professor": "Anderson Ignacio",
-    "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
-    "tags": ["React", "Logística"],
-    "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400",
-    "githubUrl": "#"
+    "id": "Cidade_sem_buracos-main",
+    "title": "cidade_sem_buracos",
+    "description": "Sistema web mobile-first para registro de buracos com foto, localizacao e persistencia em SQLite.",
+    "tags": [
+      "better-sqlite3",
+      "dotenv",
+      "express",
+      "multer"
+    ],
+    "conformity": {
+      "readme": true,
+      "gitignore": true,
+      "tests": true
+    },
+    "score": 100
   },
   {
-    "id": "2",
-    "title": "Plataforma de Monitoramento de Efluentes",
-    "professor": "Dr. Silva",
+    "id": "gestao-estoque",
+    "title": "gestao-estoque",
+    "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
+    "tags": [
+      "react",
+      "express"
+    ],
+    "conformity": {
+      "readme": true,
+      "gitignore": true,
+      "tests": true
+    },
+    "score": 100
+  },
+  {
+    "id": "monitoramento-efluentes",
+    "title": "monitoramento-efluentes",
     "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
-    "tags": ["IoT", "Node.js"],
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400",
-    "githubUrl": "#"
+    "tags": [
+      "node-red",
+      "mqtt"
+    ],
+    "conformity": {
+      "readme": false,
+      "gitignore": false,
+      "tests": false
+    },
+    "score": 0
   }
 ]
