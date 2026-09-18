@@ -1,5 +1,15 @@
 # Cidade Sem Buracos
 
+## Integrantes
+
+- Audinalberth Mendes Carvalho
+- Davi Cunha Rodrigues
+- Diego Tarso Quirino de Lima
+- Miguel Alves Pardini
+- Pedro Luis Ribeiro
+- Ray Gabriel Moreira Araujo
+- Gabriel Augusto de Oliveira
+
 Sistema web mobile-first para registrar buracos na via publica com foto e localizacao, com painel interno para a prefeitura operar os chamados.
 
 ## O que o projeto faz

@@ -56,22 +56,46 @@ function extractTags(packageJson) {
   return dependencies;
 }
 
+function parseRequirements(content) {
+  return content
+    .split("\n")
+    .map((line) => line.split("#")[0].trim())
+    .filter((line) => line && !line.startsWith("-"))
+    .map((line) => line.split(/[<>=!~;\[ ]/)[0]);
+}
+
+async function readManifest(projectPath) {
+  const packageJsonPath = path.join(projectPath, "package.json");
+  if (await exists(packageJsonPath)) {
+    const packageJson = JSON.parse(await readFile(packageJsonPath, "utf-8"));
+    return { manifest: packageJson, tags: extractTags(packageJson) };
+  }
+
+  const requirementsPath = path.join(projectPath, "requirements.txt");
+  if (await exists(requirementsPath)) {
+    const tags = parseRequirements(await readFile(requirementsPath, "utf-8"));
+    return { manifest: {}, tags };
+  }
+
+  return null;
+}
+
 async function scanProject(dirName) {
   const projectPath = path.join(PROJECTS_DIR, dirName);
-  const packageJsonPath = path.join(projectPath, "package.json");
+  const result = await readManifest(projectPath);
 
-  if (!(await exists(packageJsonPath))) {
+  if (!result) {
     return null;
   }
 
-  const packageJson = JSON.parse(await readFile(packageJsonPath, "utf-8"));
-  const conformity = await checkConformity(projectPath, packageJson);
+  const { manifest, tags } = result;
+  const conformity = await checkConformity(projectPath, manifest);
 
   return {
     id: dirName,
-    title: packageJson.name ?? dirName,
-    description: packageJson.description ?? "",
-    tags: extractTags(packageJson),
+    title: manifest.name ?? dirName,
+    description: manifest.description ?? "",
+    tags,
     conformity,
     score: scoreProject(conformity),
   };
