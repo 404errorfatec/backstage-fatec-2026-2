@@ -1,115 +1,87 @@
-import projects from './data/projects.json';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+// Importamos o nosso "banco de dados" estático
+import projectsData from './data/projects.json'
 
-const GRADE_VAR = {
-  A: 'var(--grade-a)',
-  B: 'var(--grade-b)',
-  C: 'var(--grade-c)',
-  D: 'var(--grade-d)',
-  F: 'var(--grade-f)',
-};
+function App() {
+  // Estado para busca 
+  const [search, setSearch] = useState('')
 
-function GradeBadge({ grade }) {
-  const color = GRADE_VAR[grade] || GRADE_VAR.F;
-  return (
-    <span className="grade-badge" style={{ color }}>
-      {grade}
-    </span>
-  );
-}
-
-function ProjectCard({ project }) {
-  const color = GRADE_VAR[project.grade] || GRADE_VAR.F;
+  const filteredProjects = projectsData.filter(p => 
+    p.title.toLowerCase().includes(search.toLowerCase()) ||
+    p.professor.toLowerCase().includes(search.toLowerCase())
+  )
 
   return (
-    <article className="card">
-      <div className="card-top">
-        <h3 className="card-name">
-          {project.url ? (
-            <a href={project.url} target="_blank" rel="noreferrer">
-              <span className="card-owner">{project.owner}/</span>
-              {project.name}
-            </a>
-          ) : (
-            <>
-              <span className="card-owner">{project.owner}/</span>
-              {project.name}
-            </>
-          )}
-        </h3>
-        <GradeBadge grade={project.grade} />
-      </div>
-
-      <p className="card-desc">{project.description || 'Sem descrição.'}</p>
-
-      <div className="score-row">
-        <div className="score-track">
-          <div
-            className="score-fill"
-            style={{ width: `${project.total}%`, background: color }}
-          />
+    <div className="min-h-screen bg-gray-900 text-white font-sans p-8">
+      {/* Header da Organização */}
+      <header className="max-w-6xl mx-auto mb-12 flex justify-between items-center border-b border-gray-700 pb-6">
+        <div>
+          <h1 className="text-4xl font-black tracking-tighter text-red-500">
+            error404<span className="text-white">fatec</span>
+          </h1>
+          <p className="text-gray-400 mt-2">Backstage - Vitrine de Projetos Acadêmicos</p>
         </div>
-        <span className="score-num">{project.total}/100</span>
-      </div>
-
-      {project.stack?.length > 0 && (
-        <div className="stack-tags">
-          {project.stack.map((tech) => (
-            <span className="tag" key={tech}>
-              {tech}
-            </span>
-          ))}
-        </div>
-      )}
-
-      <details className="checklist">
-        <summary>Ver critérios avaliados</summary>
-        <ul>
-          {project.breakdown.map((item) => (
-            <li key={item.key}>
-              <span className={`mark ${item.achieved ? 'yes' : 'no'}`}>
-                {item.achieved ? '✔' : '✘'}
-              </span>
-              <span>
-                {item.label} ({item.points}/{item.max})
-                {item.detail && <span className="detail"> — {item.detail}</span>}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </article>
-  );
-}
-
-export default function App() {
-  const sorted = [...projects].sort((a, b) => b.total - a.total);
-
-  return (
-    <div className="page">
-      <header className="header">
-        <h1>Backstage FATEC</h1>
-        <span className="path">src/data/projects.json</span>
+        
+        {/* Barra de Busca Simples */}
+        <input 
+          type="text" 
+          placeholder="Buscar projeto ou professor..."
+          className="bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-red-500"
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </header>
 
-      <p className="subtitle">
-        Catálogo de repositórios avaliados por boas práticas de engenharia. Rode{' '}
-        <code>npm run scan &lt;url-do-github&gt;</code> para adicionar um repositório, ou{' '}
-        <code>npm run scan -- --local mock-projects/nome</code> para uma pasta local.
-      </p>
+      {/* Grid de Projetos */}
+      <main className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredProjects.map((project) => (
+          <div key={project.id} className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-red-500 transition-all group">
+            <div className="h-48 bg-gray-700 overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title} 
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+              />
+            </div>
+            
+            <div className="p-6">
+              <div className="flex gap-2 mb-3">
+                {project.tags.map(tag => (
+                  <span key={tag} className="text-[10px] uppercase font-bold bg-red-900/30 text-red-400 px-2 py-1 rounded">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              
+              <h2 className="text-xl font-bold mb-2">{project.title}</h2>
+              <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.description}</p>
+              
+              <div className="flex justify-between items-center pt-4 border-t border-gray-700">
+                <span className="text-xs text-gray-500">Prof. {project.professor}</span>
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  className="text-red-500 hover:text-red-400 text-sm font-semibold"
+                >
+                  Ver Projeto →
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
 
-      {sorted.length === 0 ? (
-        <div className="empty">
-          Nenhum projeto escaneado ainda. Rode <code>npm run scan &lt;url&gt;</code> no terminal
-          para popular este catálogo.
+        {/* Card de "Adicione seu projeto" - Incentivo para a sala */}
+        <div className="border-2 border-dashed border-gray-700 rounded-xl flex flex-col items-center justify-center p-8 text-center opacity-50 hover:opacity-100 transition-opacity">
+          <p className="text-gray-400 mb-2">Seu projeto aqui?</p>
+          <p className="text-xs">Abra um Pull Request na branch do seu grupo.</p>
         </div>
-      ) : (
-        <div className="grid">
-          {sorted.map((project) => (
-            <ProjectCard project={project} key={project.id} />
-          ))}
-        </div>
-      )}
+      </main>
+
+      <footer className="max-w-6xl mx-auto mt-20 text-center text-gray-600 text-xs">
+        <p>© 2026 error404fatec - Disciplina de Gestão da Produção / Programação Web</p>
+      </footer>
     </div>
-  );
+  )
 }
+
+export default App
