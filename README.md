@@ -1,16 +1,41 @@
-# React + Vite
+# Backstage FATEC
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O Backstage FATEC é uma vitrine digital para apresentar projetos acadêmicos desenvolvidos pelos estudantes. A aplicação organiza os projetos em cartões com descrição, tecnologias utilizadas, professor responsável e link para o repositório. A busca permite localizar projetos pelo título ou pelo nome do professor.
 
-Currently, two official plugins are available:
+Os dados exibidos ficam em `src/data/projects.json`. O projeto também conta com um script que analisa as pastas em `mock-projects/`, identifica informações dos manifestos e verifica a presença de README, `.gitignore` e testes. O resultado é gravado no arquivo JSON usado pelo catálogo.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologias
 
-## React Compiler
+- React
+- Vite
+- Tailwind CSS
+- Node.js
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Como executar
 
-## Expanding the ESLint configuration
+É necessário ter Node.js 20.19 ou superior instalado.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project..
+```bash
+npm install
+npm run dev
+```
+
+Para gerar a versão de produção:
+
+```bash
+npm run build
+```
+
+Para atualizar os dados do catálogo a partir das pastas de exemplo:
+
+```bash
+npm run scan
+```
+
+## Participantes
+
+- Luciano Souza Peixoto
+- Ryan Oliveira Moscardini
+- Miguel de Paula Arantes
+- Cauê Vinicius
+- Felipe de Oliveira Souza
