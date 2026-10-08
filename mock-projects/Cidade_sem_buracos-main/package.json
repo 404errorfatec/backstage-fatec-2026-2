@@ -1,0 +1,35 @@
+{
+  "name": "cidade_sem_buracos",
+  "version": "1.0.0",
+  "description": "Sistema web mobile-first para registro de buracos com foto, localizacao e persistencia em SQLite.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "test": "node --check server.js && node --check public/app.js && node --check painel/acesso.js && node --check painel/painel.js"
+  },
+  "engines": {
+    "node": "18.19.1",
+    "npm": "9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nalberthdev/Cidade_sem_buracos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nalberthdev/Cidade_sem_buracos/issues"
+  },
+  "homepage": "https://github.com/Nalberthdev/Cidade_sem_buracos#readme",
+  "dependencies": {
+    "better-sqlite3": "11.3.0",
+    "dotenv": "17.3.1",
+    "express": "5.2.1",
+    "multer": "2.1.1"
+  }
+}

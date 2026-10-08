@@ -1,0 +1,711 @@
+/* ==========================================================================
+   Cidade Sem Buracos — painel interno
+   Mesma paleta da interface publica, porem mais denso e utilitario.
+   A tabela vira lista de cartoes no celular.
+   ========================================================================== */
+
+:root {
+  --paper: #fdfbf5;
+  --paper-deep: #f6f2e6;
+  --surface: #ffffff;
+  --leaf: #4f7a2e;
+  --leaf-deep: #3a5c20;
+  --leaf-wash: #edf3e3;
+  --amber: #d98c2b;
+  --amber-wash: #fbf0dc;
+  --amber-ink: #8a5610;
+  --ink: #26301f;
+  --ink-soft: #6b7565;
+  --rule: #e4e2d6;
+  --rule-strong: #d2cfbe;
+  --danger: #b3453f;
+  --danger-wash: #fbeceb;
+  --success: #2f7d4f;
+  --success-wash: #e8f3ec;
+
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
+
+  --shadow-card: 0 1px 2px rgba(38, 48, 31, 0.04), 0 12px 28px -14px rgba(38, 48, 31, 0.18);
+
+  --gutter: 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+.painel-body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--leaf);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Barra superior e marca
+   -------------------------------------------------------------------------- */
+
+.painel-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(253, 251, 245, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.painel-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 12px var(--gutter);
+}
+
+.painel-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.painel-brand strong {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.brand-mark {
+  position: relative;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--leaf);
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--paper);
+  transform: translate(-50%, -50%);
+}
+
+/* --------------------------------------------------------------------------
+   Estrutura
+   -------------------------------------------------------------------------- */
+
+.painel-shell {
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 26px var(--gutter) 64px;
+}
+
+.painel-intro h1 {
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
+}
+
+.painel-copy {
+  margin-top: 8px;
+  max-width: 54ch;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+/* --------------------------------------------------------------------------
+   Resumo
+   -------------------------------------------------------------------------- */
+
+.painel-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.summary-card {
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--rule-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.summary-label {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 4px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.summary-card-fila {
+  border-left-color: var(--amber);
+}
+
+.summary-card-ok {
+  border-left-color: var(--success);
+}
+
+.summary-card-off {
+  border-left-color: var(--rule-strong);
+}
+
+/* --------------------------------------------------------------------------
+   Filtros
+   -------------------------------------------------------------------------- */
+
+.painel-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+
+.painel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 11rem;
+}
+
+.painel-field-grow {
+  flex: 2 1 14rem;
+}
+
+.painel-field > span {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.painel-field input,
+.painel-field select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.painel-field input:focus,
+.painel-field select:focus {
+  outline: none;
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(79, 122, 46, 0.16);
+}
+
+/* --------------------------------------------------------------------------
+   Botoes
+   -------------------------------------------------------------------------- */
+
+.painel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.painel-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.painel-button-primary {
+  background: var(--leaf);
+  color: #fff;
+}
+
+.painel-button-primary:hover:not(:disabled) {
+  background: var(--leaf-deep);
+}
+
+.painel-button-secondary {
+  background: var(--leaf-wash);
+  color: var(--leaf-deep);
+}
+
+.painel-button-secondary:hover:not(:disabled) {
+  background: #e2ecd3;
+}
+
+.painel-button-ghost {
+  background: transparent;
+  border-color: var(--rule-strong);
+  color: var(--ink-soft);
+}
+
+.painel-button-ghost:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.painel-button-danger {
+  background: transparent;
+  border-color: #e6c5c3;
+  color: var(--danger);
+}
+
+.painel-button-danger:hover:not(:disabled) {
+  background: var(--danger-wash);
+  border-color: var(--danger);
+}
+
+.painel-button-small {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 0.875rem;
+}
+
+.painel-button-wide {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Cartao da listagem
+   -------------------------------------------------------------------------- */
+
+.painel-table-card {
+  margin-top: 22px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.table-head h2 {
+  font-size: 1.25rem;
+}
+
+.painel-feedback {
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+.painel-feedback:empty {
+  display: none;
+}
+
+.painel-feedback.is-error {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--danger-wash);
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.painel-feedback.is-success {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--success-wash);
+  color: var(--success);
+  font-weight: 500;
+}
+
+.table-wrap {
+  width: 100%;
+}
+
+.painel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.painel-table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.painel-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.painel-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.painel-table tbody tr:hover {
+  background: var(--paper);
+}
+
+.table-empty {
+  padding: 40px 16px !important;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.cell-protocol {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cell-date {
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.thumb-button {
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: none;
+  overflow: hidden;
+  line-height: 0;
+  transition: border-color 160ms ease;
+}
+
+.thumb-button:hover {
+  border-color: var(--leaf);
+}
+
+.report-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.status-select {
+  width: 100%;
+  min-width: 9rem;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--leaf);
+  box-shadow: 0 0 0 3px rgba(79, 122, 46, 0.16);
+}
+
+.status-meta {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.action-button {
+  min-height: 38px;
+  padding: 0 12px;
+  font-size: 0.8125rem;
+}
+
+/* --------------------------------------------------------------------------
+   Dialogo da foto
+   -------------------------------------------------------------------------- */
+
+.photo-dialog {
+  max-width: min(92vw, 40rem);
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.photo-dialog::backdrop {
+  background: rgba(38, 48, 31, 0.6);
+}
+
+.photo-dialog-card {
+  position: relative;
+}
+
+.photo-dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(6px);
+}
+
+.photo-dialog-image {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  background: var(--paper-deep);
+}
+
+/* --------------------------------------------------------------------------
+   Tela de acesso
+   -------------------------------------------------------------------------- */
+
+.acesso-shell {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 32px var(--gutter);
+}
+
+.acesso-card {
+  width: 100%;
+  max-width: 25rem;
+  padding: 28px 24px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.acesso-brand {
+  margin-bottom: 22px;
+}
+
+.acesso-card h1 {
+  font-size: 1.75rem;
+}
+
+.acesso-copy {
+  margin-top: 8px;
+  color: var(--ink-soft);
+  font-size: 0.9375rem;
+}
+
+.acesso-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   Celular: a tabela vira lista de cartoes
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .painel-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .painel-table,
+  .painel-table tbody,
+  .painel-table tr,
+  .painel-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .painel-table tbody tr {
+    padding: 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .painel-table tbody tr:hover {
+    background: none;
+  }
+
+  .painel-table td {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 0;
+    border-bottom: 0;
+  }
+
+  .painel-table td::before {
+    content: attr(data-label);
+    flex: none;
+    width: 6.5rem;
+    color: var(--ink-soft);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .painel-table td[data-label="Foto"]::before,
+  .painel-table td[data-label="Acoes"]::before {
+    display: none;
+  }
+
+  .painel-table td[data-label="Foto"] {
+    padding-bottom: 12px;
+  }
+
+  .report-thumb {
+    width: 100%;
+    height: 170px;
+  }
+
+  .thumb-button {
+    width: 100%;
+    border-radius: var(--r-sm);
+  }
+
+  .cell-protocol {
+    font-size: 1rem;
+  }
+
+  .painel-table td[data-label="Status"] {
+    flex-wrap: wrap;
+  }
+
+  .status-select {
+    flex: 1;
+    width: auto;
+  }
+
+  .status-meta {
+    flex-basis: 100%;
+    margin-top: 0;
+    padding-left: 6.5rem;
+  }
+
+  .table-actions {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .table-actions .action-button {
+    flex: 1;
+  }
+
+  .table-empty {
+    padding: 36px 16px !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Telas maiores
+   -------------------------------------------------------------------------- */
+
+@media (min-width: 640px) {
+  :root {
+    --gutter: 28px;
+  }
+
+  .painel-summary {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .painel-shell {
+    padding-top: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

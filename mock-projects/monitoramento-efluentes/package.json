@@ -1,0 +1,8 @@
+{
+  "name": "monitoramento-efluentes",
+  "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
+  "dependencies": {
+    "node-red": "^3.1.0",
+    "mqtt": "^5.3.0"
+  }
+}

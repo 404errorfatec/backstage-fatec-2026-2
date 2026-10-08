@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FDFBF5">
+  <title>Cidade Sem Buracos</title>
+  <meta
+    name="description"
+    content="Registre um buraco na sua rua com foto e localizacao. Leva menos de um minuto."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-camera" viewBox="0 0 24 24">
+        <path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7a1 1 0 0 0 .83-.44l.94-1.4A1 1 0 0 1 9.8 3.7h4.4a1 1 0 0 1 .83.45l.94 1.4A1 1 0 0 0 16.8 6h1.7A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5z"/>
+        <circle cx="12" cy="12.8" r="3.6"/>
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24">
+        <path d="M12 21.5s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/>
+        <circle cx="12" cy="10.2" r="2.8"/>
+      </symbol>
+      <symbol id="i-send" viewBox="0 0 24 24">
+        <path d="M21 3 10.5 13.5"/>
+        <path d="M21 3 14.3 21.2a.6.6 0 0 1-1.12.05L10.5 13.5 2.75 10.82a.6.6 0 0 1 .05-1.13z"/>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="m4.5 12.6 5 5L19.5 7.2"/>
+      </symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24">
+        <path d="M19 12H5"/>
+        <path d="m11 6-6 6 6 6"/>
+      </symbol>
+      <symbol id="i-crosshair" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="7.5"/>
+        <circle cx="12" cy="12" r="2.4"/>
+        <path d="M12 1.8v3.2M12 19v3.2M22.2 12H19M5 12H1.8"/>
+      </symbol>
+      <symbol id="i-pencil" viewBox="0 0 24 24">
+        <path d="M4 20h4.2L20 8.2a2.1 2.1 0 0 0 0-3l-1.2-1.2a2.1 2.1 0 0 0-3 0L4 15.8z"/>
+        <path d="m14.6 5.6 3.8 3.8"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main class="app-shell">
+    <section class="app-screen" aria-labelledby="app-title">
+      <header class="hero">
+        <div class="hero-illustration" aria-hidden="true">
+          <svg viewBox="0 0 320 132" role="presentation">
+            <clipPath id="hero-clip">
+              <rect x="0" y="0" width="320" height="132" rx="20"/>
+            </clipPath>
+            <g clip-path="url(#hero-clip)">
+            <rect class="hero-sky" x="0" y="0" width="320" height="132"/>
+
+            <circle class="hero-sun" cx="256" cy="34" r="15"/>
+
+            <g class="hero-skyline">
+              <rect x="34" y="40" width="30" height="42" rx="4"/>
+              <rect x="70" y="26" width="24" height="56" rx="4"/>
+              <rect x="100" y="48" width="34" height="34" rx="4"/>
+              <rect x="186" y="34" width="26" height="48" rx="4"/>
+              <rect x="218" y="52" width="30" height="30" rx="4"/>
+            </g>
+
+            <g class="hero-tree">
+              <path d="M150 82V64"/>
+              <circle cx="150" cy="54" r="12"/>
+            </g>
+            <g class="hero-tree">
+              <path d="M266 82V70"/>
+              <circle cx="266" cy="62" r="9"/>
+            </g>
+
+            <rect class="hero-curb" x="0" y="80" width="320" height="5"/>
+            <rect class="hero-road" x="0" y="85" width="320" height="47"/>
+
+            <g class="hero-lane">
+              <rect x="18" y="106" width="30" height="5" rx="2.5"/>
+              <rect x="62" y="106" width="30" height="5" rx="2.5"/>
+              <rect x="192" y="106" width="30" height="5" rx="2.5"/>
+              <rect x="236" y="106" width="30" height="5" rx="2.5"/>
+              <rect x="280" y="106" width="30" height="5" rx="2.5"/>
+            </g>
+
+            <ellipse class="hero-hole" cx="145" cy="108" rx="30" ry="12"/>
+            <ellipse class="hero-hole-inner" cx="145" cy="110" rx="22" ry="7.5"/>
+            </g>
+          </svg>
+        </div>
+
+        <h1 id="app-title">Um buraco a menos na sua rua</h1>
+        <p class="hero-lead">Tire uma foto, confirme o local e envie. Leva menos de um minuto e voce recebe um protocolo na hora.</p>
+
+        <ul class="hero-marks">
+          <li>Foto pelo celular</li>
+          <li>GPS ou endereco</li>
+          <li>Protocolo imediato</li>
+        </ul>
+      </header>
+
+      <form id="report-form" class="wizard-form" novalidate>
+        <section class="progress" aria-label="Progresso do envio">
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <ol class="progress-steps">
+            <li class="progress-step is-active" data-step-indicator="1">
+              <span class="step-dot">1</span>
+              <span class="step-name">Foto</span>
+            </li>
+            <li class="progress-step" data-step-indicator="2">
+              <span class="step-dot">2</span>
+              <span class="step-name">Local</span>
+            </li>
+            <li class="progress-step" data-step-indicator="3">
+              <span class="step-dot">3</span>
+              <span class="step-name">Envio</span>
+            </li>
+          </ol>
+        </section>
+
+        <section id="step-1" class="step-panel is-active" data-step="1" aria-labelledby="step-1-title">
+          <div class="panel-card">
+            <div class="panel-head">
+              <h2 id="step-1-title">Mostre onde esta o buraco</h2>
+              <span class="badge badge-required">Obrigatorio</span>
+            </div>
+            <p class="panel-copy">Uma foto nitida ajuda a equipe a entender o problema logo de primeira.</p>
+
+            <input id="photo-input" class="sr-only" type="file" accept="image/*" capture="environment">
+
+            <div id="photo-preview" class="photo-preview">
+              <div class="photo-empty">
+                <svg class="icon photo-empty-icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                <strong>Nenhuma foto ainda</strong>
+                <p>Mostre o buraco e um pouco da rua ao redor.</p>
+              </div>
+              <img id="preview-image" alt="Preview da foto do buraco">
+              <span class="photo-badge">
+                <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+                Foto adicionada
+              </span>
+            </div>
+
+            <button id="camera-button" class="button button-primary button-wide" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#i-camera"/></svg>
+              Abrir camera
+            </button>
+
+            <p id="photo-hint" class="field-hint">Adicione uma imagem para liberar o proximo passo.</p>
+
+            <div class="step-actions">
+              <button id="step-one-continue" class="button button-primary button-wide" type="button" disabled>Continuar</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="step-2" class="step-panel" data-step="2" aria-labelledby="step-2-title" hidden>
+          <div class="panel-card">
+            <div class="panel-head">
+              <h2 id="step-2-title">Confirme o local</h2>
+              <span id="location-badge" class="badge">Preparando GPS</span>
+            </div>
+            <p id="location-status" class="panel-copy">Use o GPS do celular ou preencha o endereco. O que for mais rapido para voce.</p>
+
+            <section class="location-state-card" aria-labelledby="gps-card-title">
+              <div class="block-head">
+                <svg class="icon block-icon" aria-hidden="true"><use href="#i-crosshair"/></svg>
+                <h3 id="gps-card-title" class="block-title">Localizacao automatica</h3>
+                <span id="location-summary-pill" class="status-pill">Aguardando</span>
+              </div>
+              <p id="location-summary-text" class="block-copy">Vamos pedir sua permissao antes de usar o GPS do celular.</p>
+              <div class="source-actions">
+                <button id="use-gps-button" class="button button-secondary" type="button" disabled>Usar local detectado</button>
+                <button id="retry-gps-button" class="button button-ghost" type="button">Ativar localizacao</button>
+              </div>
+            </section>
+
+            <section class="manual-card" aria-labelledby="manual-title">
+              <div class="block-head">
+                <svg class="icon block-icon" aria-hidden="true"><use href="#i-pencil"/></svg>
+                <h3 id="manual-title" class="block-title">Digitar o endereco</h3>
+                <button id="use-manual-button" class="button button-secondary button-small" type="button" disabled>Usar este endereco</button>
+              </div>
+              <div class="manual-grid">
+                <label class="field field-wide">
+                  <span>Rua ou avenida</span>
+                  <input id="manual-street" name="manualStreet" type="text" placeholder="Avenida Central" autocomplete="address-line1">
+                </label>
+                <label class="field">
+                  <span>Numero</span>
+                  <input id="manual-number" name="manualNumber" type="text" placeholder="123 ou S/N">
+                </label>
+                <label class="field">
+                  <span>Bairro</span>
+                  <input id="manual-district" name="manualDistrict" type="text" placeholder="Centro">
+                </label>
+                <label class="field field-wide">
+                  <span>Cidade</span>
+                  <input id="manual-city" name="manualCity" type="text" placeholder="Sua cidade" autocomplete="address-level2">
+                </label>
+              </div>
+            </section>
+
+            <div class="active-source-card">
+              <svg class="icon source-icon" aria-hidden="true"><use href="#i-pin"/></svg>
+              <div>
+                <strong id="active-source-text">Escolha uma origem valida para continuar.</strong>
+                <p id="location-hint" class="field-hint">Confirme o GPS ou use o endereco digitado.</p>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button id="step-two-back" class="button button-ghost button-inline" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+                Voltar
+              </button>
+              <button id="step-two-continue" class="button button-primary button-wide" type="button" disabled>Continuar</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="step-3" class="step-panel" data-step="3" aria-labelledby="step-3-title" hidden>
+          <div class="panel-card">
+            <div class="panel-head">
+              <h2 id="step-3-title">Revise e envie</h2>
+              <span class="badge">Ultimo passo</span>
+            </div>
+            <p class="panel-copy">Confira o resumo, informe seu nome e conclua o envio.</p>
+
+            <ul class="review-list">
+              <li class="review-row">
+                <svg class="icon review-icon" aria-hidden="true"><use href="#i-camera"/></svg>
+                <span class="review-label">Foto</span>
+                <strong id="photo-summary">Aguardando foto</strong>
+              </li>
+              <li class="review-row">
+                <svg class="icon review-icon" aria-hidden="true"><use href="#i-pin"/></svg>
+                <span class="review-label">Local</span>
+                <strong id="location-summary">Aguardando confirmacao</strong>
+              </li>
+            </ul>
+
+            <label class="field field-wide">
+              <span>Seu nome</span>
+              <input id="reporter-name" name="reporterName" type="text" placeholder="Como devemos te chamar" autocomplete="name">
+            </label>
+            <p id="name-hint" class="field-hint">Seu nome fica salvo junto ao registro.</p>
+
+            <div id="form-feedback" class="form-feedback" role="status" aria-live="polite"></div>
+
+            <div class="step-actions">
+              <button id="step-three-back" class="button button-ghost button-inline" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>
+                Voltar
+              </button>
+              <button id="submit-button" class="button button-primary button-wide" type="submit">
+                <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>
+                Enviar solicitacao
+              </button>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <section id="success-state" class="success-state" hidden aria-live="polite">
+        <div id="success-confetti" class="success-confetti" aria-hidden="true"></div>
+        <div class="success-mark" aria-hidden="true">
+          <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+        </div>
+        <h2>Obrigado por cuidar da cidade</h2>
+        <p id="protocol-text" class="success-copy"></p>
+        <ul class="success-checklist">
+          <li>Foto anexada ao registro</li>
+          <li>Localizacao confirmada</li>
+          <li>Enviado para a prefeitura</li>
+        </ul>
+        <button id="reset-button" class="button button-primary button-wide" type="button">Registrar outro buraco</button>
+      </section>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
