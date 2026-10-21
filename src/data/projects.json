@@ -1,24 +1,9 @@
 [
   {
-    "id": "Cidade_sem_buracos-main",
-    "title": "cidade_sem_buracos",
-    "description": "Sistema web mobile-first para registro de buracos com foto, localizacao e persistencia em SQLite.",
-    "tags": [
-      "better-sqlite3",
-      "dotenv",
-      "express",
-      "multer"
-    ],
-    "conformity": {
-      "readme": true,
-      "gitignore": true,
-      "tests": true
-    },
-    "score": 100
-  },
-  {
-    "id": "gestao-estoque",
-    "title": "gestao-estoque",
+    "id": "1",
+    "folder": "app-gestao-estoque",
+    "title": "Sistema de Gestão de Estoque",
+    "professor": "Anderson Ignacio",
     "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
     "tags": [
       "react",
@@ -32,8 +17,10 @@
     "score": 100
   },
   {
-    "id": "monitoramento-efluentes",
-    "title": "monitoramento-efluentes",
+    "id": "2",
+    "folder": "plataforma-efluentes",
+    "title": "Plataforma de Monitoramento de Efluentes",
+    "professor": "Dr. Silva",
     "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
     "tags": [
       "node-red",
