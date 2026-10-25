@@ -27,6 +27,9 @@ jobs:
       - name: Baixar o código
         uses: actions/checkout@v4
 
+      - name: Mostrar a branch
+        run: echo "Branch: ${{ github.ref_name }}"
+
       - name: Configurar o Node.js
         uses: actions/setup-node@v4
         with:
