@@ -4,6 +4,8 @@ import './App.css'
 import projectsData from './data/projects.json'
 import analysisData from './data/project-analysis.json'
 
+const variavelSemUso = 123
+
 function App() {
   const [search, setSearch] = useState('')
   const [selectedProject, setSelectedProject] = useState(null)
