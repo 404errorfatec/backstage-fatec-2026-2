@@ -34,8 +34,9 @@ npm run scan
 
 ## Participantes
 
-- Luciano Souza Peixoto
-- Ryan Oliveira Moscardini
-- Miguel de Paula Arantes
-- Cauê Vinicius
-- Felipe de Oliveira Souza
+- Anael Monte Paz de Araújo
+- Felipe Henrique de Oliveira
+- Gabriel Aparecido Messias
+- Moisés Kennedy Batista Mendes
+- Vinícius Carrijo de Souza
+- Vinícius Meloni
