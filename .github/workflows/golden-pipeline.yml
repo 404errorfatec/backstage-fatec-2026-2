@@ -1,0 +1,46 @@
+﻿name: Golden Pipeline
+
+# Workflow reutilizável: valida o projeto (lint, catálogo e build).
+# O deploy continua automático pela integração Git da Vercel.
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Versão do Node.js
+        type: string
+        default: "22"
+      run-catalog-check:
+        description: Verifica se src/data/projects.json está atualizado
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Configurar o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Validar catálogo
+        if: ${{ inputs.run-catalog-check }}
+        run: bash scripts/ci/check-catalog.sh
+
+      - name: Build
+        run: npm run build
