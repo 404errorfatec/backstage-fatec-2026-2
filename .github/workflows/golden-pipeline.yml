@@ -1,4 +1,4 @@
-﻿name: Golden Pipeline
+name: Golden Pipeline
 
 # Workflow reutilizável: valida o projeto (lint, catálogo e build).
 # O deploy continua automático pela integração Git da Vercel.
