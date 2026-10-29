@@ -1,6 +1,6 @@
 # Backstage FATEC
 
-tetiudhskdhsak
+teste 2
 
 O Backstage FATEC é uma vitrine digital para apresentar projetos acadêmicos desenvolvidos pelos estudantes. A aplicação organiza os projetos em cartões com descrição, tecnologias utilizadas, professor responsável e link para o repositório. A busca permite localizar projetos pelo título ou pelo nome do professor.
 
