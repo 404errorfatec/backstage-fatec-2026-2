@@ -1,0 +1,20 @@
+```yaml
+name: CI
+
+# Executa a pipeline quando houver alterações na main ou develop.
+on:
+  pull_request:
+    branches: [develop, main]
+
+  push:
+    branches: [develop, main]
+
+# Evita executar várias verificações ao mesmo tempo para a mesma branch.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    uses: ./.github/workflows/golden-pipeline.yml
+```
