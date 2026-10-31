@@ -1,5 +1,3 @@
-```yaml
-
 name: Golden Pipeline
 
 # Nesta seção estão as verificações que o projeto precisa passar.
@@ -48,4 +46,3 @@ jobs:
 
       - name: Build
         run: npm run build
-```
