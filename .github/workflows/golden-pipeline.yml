@@ -7,6 +7,7 @@ on:
   # Permite que outro workflow utilize essas etapas.
   workflow_call:
     inputs:
+      node-version:
         description: Versão do Node.js
         type: string
         default: "22"
