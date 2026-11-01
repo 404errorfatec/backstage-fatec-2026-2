@@ -1,0 +1,15 @@
+{
+    "name": "gestao-indicadores-agua",
+    "description": "Plataforma de monitoramento em tempo real do consumo de água em processos industriais, com alertas automáticos de desperdício.",
+    "dependencies": {
+        "react": "19.3.0",
+        "express": "5.2.1",
+        "chart.js": "4.4.1"
+    },
+    "professor": "Fernanda Biano",
+    "image": "https://allondaa.sg-host.com/site/wp-content/uploads/2018/12/GestaoAgua.jpg",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/exemplo/1"
+    }
+}

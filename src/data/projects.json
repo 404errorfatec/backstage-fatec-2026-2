@@ -1,36 +1,45 @@
 [
   {
-    "id": "1",
-    "folder": "app-gestao-estoque",
-    "title": "Sistema de Gestão de Estoque",
-    "professor": "Anderson Ignacio",
-    "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
+    "id": "controle-qualidade",
+    "title": "controle-qualidade-industrial",
+    "description": "Sistema web para registro e análise de indicadores de qualidade em linha de produção, com dashboards de não-conformidades e SPC.",
     "tags": [
       "react",
-      "express"
+      "express",
+      "recharts",
+      "axios"
     ],
-    "conformity": {
-      "readme": true,
-      "gitignore": true,
-      "tests": true
-    },
-    "score": 100
+    "score": 50,
+    "professor": "Anderson Ignacio",
+    "image": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=400",
+    "githubUrl": "https://github.com/exemplo/1"
   },
   {
-    "id": "2",
-    "folder": "plataforma-efluentes",
-    "title": "Plataforma de Monitoramento de Efluentes",
-    "professor": "Dr. Silva",
-    "description": "Dashboard para visualização de sensores IoT em tempo real para a disciplina de Engenharia.",
+    "id": "gestao-operacional",
+    "title": "gestao-operacional",
+    "description": "Plataforma de dados operacionais de produção e operação industrial.",
     "tags": [
-      "node-red",
-      "mqtt"
+      "react",
+      "express",
+      "chart.js"
     ],
-    "conformity": {
-      "readme": false,
-      "gitignore": false,
-      "tests": false
-    },
-    "score": 0
+    "score": 80,
+    "professor": "Maria Gabriela",
+    "image": "https://blog.leucotron.com.br/wp-content/uploads/2017/04/como-melhorar-a-gestao-operacional-de-ti-na-sua-empresa.jpeg",
+    "githubUrl": "https://github.com/exemplo/1"
+  },
+  {
+    "id": "indicador-agua",
+    "title": "gestao-indicadores-agua",
+    "description": "Plataforma de monitoramento em tempo real do consumo de água em processos industriais, com alertas automáticos de desperdício.",
+    "tags": [
+      "react",
+      "express",
+      "chart.js"
+    ],
+    "score": 80,
+    "professor": "Fernanda Biano",
+    "image": "https://allondaa.sg-host.com/site/wp-content/uploads/2018/12/GestaoAgua.jpg",
+    "githubUrl": "https://github.com/exemplo/1"
   }
 ]

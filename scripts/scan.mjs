@@ -1,296 +1,122 @@
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import fs from 'fs/promises';
+import path from 'path';
 
-const projectsPath = path.join(process.cwd(), 'mock-projects')
-const outputPath = path.join(
-  process.cwd(),
-  'src',
-  'data',
-  'project-analysis.json'
-)
+const MOCK_DIR = "mock-projects";
+const projects = []
 
-// Percorre uma pasta e todas as suas subpastas
-async function getFiles(directory) {
-  const entries = await fs.readdir(directory, {
-    withFileTypes: true,
-  })
+async function main() {
+    const projectFolders = await fs.readdir(MOCK_DIR);
 
-  const files = []
+    for (const folder of projectFolders){
+        const projectPath = path.join(MOCK_DIR, folder);
+        const packagePath = path.join(projectPath, 'package.json');
+        const requirementsPath = path.join(projectPath, 'requirements.txt');
 
-  for (const entry of entries) {
-    const entryPath = path.join(directory, entry.name)
+        const hasPackageJson = await fileExists(packagePath);
+        const hasRequirements = await fileExists(requirementsPath);
 
-    if (entry.isDirectory()) {
-      const subFiles = await getFiles(entryPath)
-      files.push(...subFiles)
-    } else {
-      files.push(entryPath)
+        let packageData = {};
+        let tags = [];
+
+        if (hasPackageJson){
+            try {
+                const packageRaw = await fs.readFile(packagePath, 'utf-8');
+                packageData = JSON.parse(packageRaw);
+                tags = Object.keys(packageData.dependencies || {});
+            } catch (err) {
+                console.warn(`Pulando "${folder}": Erro ao ler/parsear package.json (${err.message}) `);
+                continue;
+            }
+        } else if(hasRequirements) {
+            try{
+                tags = await parseRequirementsTxt(requirementsPath);
+                //sem package.json, procura metadados em outro lugar
+                packageData = await readProjectMeta(projectPath);
+            }catch (err) {
+                console.warn(`Pulando "${folder}": Erro ao ler requirements.txt (${err.message}) `);
+                continue;
+            }
+        } else {
+            console.warn(`Pulando "${folder}": nanhum package.json ou requirements.txt encontrado`);
+                continue;
+        }
+       
+        //Verificadores
+        const hasReadme = await fileExists(path.join(projectPath, 'README.md'));
+        const hasGitignore = await fileExists(path.join(projectPath, '.gitignore'));
+        const hasTests = await fileExists(path.join(projectPath,'tests')) ||
+            await fileExists(path.join(projectPath, '__tests__'));
+
+        const score = calculateScore({ hasReadme, hasGitignore, hasTests});
+
+        console.log(`***\nLido: ${folder}`, 
+            `\nNome:`, packageData.name, 
+            `\nDescrição:`, packageData.description, 
+            `\nDependências:`, tags, 
+            `\nArquivos:`,
+                { hasReadme: hasReadme ? 'Possui' : 'Não Possui',
+                    hasGitignore: hasGitignore ? 'Possui' : 'Não Possui', 
+                    hasTests: hasTests ? 'Possui' : 'Não Possui' }, 
+             `\nNota:`, score);
+
+        projects.push({
+            id: folder,
+            title: packageData.name,
+            description: packageData.description,
+            tags: tags,
+            score: score,
+            professor: packageData.professor || "Não informado",
+            image: packageData.image || "https://via.placeholder.com/400x300",
+            githubUrl: packageData.repository?.url || "#"
+        });
     }
-  }
 
-  return files
+    console.log('\n***Relatório de Repositórios***');
+    console.log(projects);
+
+    //Gravando arquivo em scr/data/projects.json
+    const outputPath = path.join('src', 'data', 'projects.json');
+    await fs.writeFile(outputPath, JSON.stringify(projects, null, 2));
 }
 
-// Procura um arquivo pelo nome
-function getFileByName(files, fileName) {
-  return files.find(
-    file => path.basename(file) === fileName
-  )
+async function parseRequirementsTxt(filePath){
+    const raw = await fs.readFile(filePath, 'utf-8');
+    return raw
+        .split ('\n')
+        .map (line => line.trim())
+        .filter (line => line && !line.startsWith('#')) //ignora vazias e comentários
+        .map(line => line.split(/[=<>~!]/)[0].trim()) //remove versão
+        .filter(Boolean);
 }
 
-// Identifica tecnologias a partir dos nomes dos pacotes
-function detectStack(dependencies) {
-  const stack = []
-
-  const packageNames = Object.keys(dependencies)
-
-  if (
-    packageNames.includes('react') ||
-    packageNames.includes('react-dom')
-  ) {
-    stack.push('React')
-  }
-
-  if (packageNames.includes('vite')) {
-    stack.push('Vite')
-  }
-
-  if (packageNames.includes('express')) {
-    stack.push('Express')
-  }
-
-  if (packageNames.includes('next')) {
-    stack.push('Next.js')
-  }
-
-  if (
-    packageNames.includes('tailwindcss') ||
-    packageNames.includes('@tailwindcss/vite')
-  ) {
-    stack.push('Tailwind CSS')
-  }
-
-  if (packageNames.includes('typescript')) {
-    stack.push('TypeScript')
-  }
-
-  if (
-    packageNames.includes('jest') ||
-    packageNames.includes('@jest/globals')
-  ) {
-    stack.push('Jest')
-  }
-
-  if (packageNames.includes('vitest')) {
-    stack.push('Vitest')
-  }
-
-  return stack
+async function readProjectMeta(projectPath){
+   //Fallback: procura um arquivo tipo project.json com nome/descrição/professor
+   //requirements.txt não possui estes metodos
+   const metaPath = path.join(projectPath, 'project.json');
+   if(await fileExists(metaPath)){
+    const raw = await fs.readFile(metaPath, 'utf-8');
+    return JSON.parse(raw);
+   }
+   return {};
 }
 
-// Lê os projetos existentes dentro de mock-projects
-const projects = await fs.readdir(projectsPath, {
-  withFileTypes: true,
-})
 
-// Array que armazenará a análise de todos os projetos
-const analysis = []
 
-console.log('Análise dos projetos:')
-
-// Analisa cada projeto
-for (const project of projects) {
-  if (!project.isDirectory()) {
-    continue
-  }
-
-  const projectPath = path.join(
-    projectsPath,
-    project.name
-  )
-
-  // Busca todos os arquivos, incluindo subpastas
-  const files = await getFiles(projectPath)
-
-  // Procura arquivos importantes
-  const readmePath = getFileByName(
-    files,
-    'README.md'
-  )
-
-  const gitignorePath = getFileByName(
-    files,
-    '.gitignore'
-  )
-
-  const packageJsonPath = getFileByName(
-    files,
-    'package.json'
-  )
-
-  const requirementsPath = getFileByName(
-    files,
-    'requirements.txt'
-  )
-
-  // Verifica a existência dos arquivos
-  const hasReadme = Boolean(readmePath)
-  const hasGitignore = Boolean(gitignorePath)
-  const hasPackageJson = Boolean(packageJsonPath)
-  const hasRequirements = Boolean(requirementsPath)
-
-  // Procura arquivos relacionados a testes
-  const hasTests = files.some(file => {
-    const fileName = path
-      .basename(file)
-      .toLowerCase()
-
-    return (
-      fileName.includes('test') ||
-      fileName.includes('spec')
-    )
-  })
-
-  // Verifica se existem arquivos de dependências
-  const hasDependencies =
-    hasPackageJson || hasRequirements
-
-  // Verifica se existe alguma estrutura analisável
-  const hasStructure = files.length > 0
-
-  // Calcula a nota
-  let score = 0
-
-  if (hasReadme) {
-    score += 2
-  }
-
-  if (hasGitignore) {
-    score += 2
-  }
-
-  if (hasTests) {
-    score += 3
-  }
-
-  if (hasDependencies) {
-    score += 1
-  }
-
-  if (hasStructure) {
-    score += 2
-  }
-
-  // Lê o package.json, caso exista
-  let packageJson = null
-
-  if (packageJsonPath) {
-    const packageContent = await fs.readFile(
-      packageJsonPath,
-      'utf-8'
-    )
-
-    if (packageContent.trim() !== '') {
-      packageJson = JSON.parse(packageContent)
+async function fileExists(filePath){
+    try {
+        await fs.access(filePath);
+        return true
+    } catch {
+        return false;
     }
-  }
-
-  // Junta dependencies e devDependencies
-  const dependencies = {
-    ...(packageJson?.dependencies || {}),
-    ...(packageJson?.devDependencies || {}),
-  }
-
-  // Identifica a stack tecnológica
-  const stack = detectStack(dependencies)
-
-  // Cria a análise estruturada do projeto
-  const projectAnalysis = {
-    id: project.name,
-    name: project.name,
-    score,
-    criteria: {
-      readme: hasReadme,
-      gitignore: hasGitignore,
-      tests: hasTests,
-      dependencies: hasDependencies,
-      structure: hasStructure,
-    },
-    files: files.map(file =>
-      path.relative(projectPath, file)
-    ),
-    stack,
-    dependencies: Object.keys(dependencies),
-  }
-
-  // Adiciona a análise ao array geral
-  analysis.push(projectAnalysis)
-
-  // Mostra no terminal
-  console.log(`\nProjeto: ${project.name}`)
-
-  console.log(
-    `README: ${hasReadme ? 'Sim' : 'Não'}`
-  )
-
-  console.log(
-    `Gitignore: ${hasGitignore ? 'Sim' : 'Não'}`
-  )
-
-  console.log(
-    `package.json: ${hasPackageJson ? 'Sim' : 'Não'}`
-  )
-
-  console.log(
-    `requirements.txt: ${hasRequirements ? 'Sim' : 'Não'}`
-  )
-
-  console.log(
-    `Testes identificados: ${hasTests ? 'Sim' : 'Não'}`
-  )
-
-  console.log(
-    `Dependências identificadas: ${
-      hasDependencies ? 'Sim' : 'Não'
-    }`
-  )
-
-  console.log(
-    `Estrutura analisável: ${
-      hasStructure ? 'Sim' : 'Não'
-    }`
-  )
-
-  console.log(`Nota final: ${score}/10`)
-
-  console.log(
-    `Stack: ${
-      stack.length > 0
-        ? stack.join(', ')
-        : 'Não identificada'
-    }`
-  )
-
-  console.log('Dependências:')
-
-  for (const dependency of Object.keys(dependencies)) {
-    console.log(`  - ${dependency}`)
-  }
 }
 
-// Garante que a pasta de destino exista
-await fs.mkdir(
-  path.dirname(outputPath),
-  { recursive: true }
-)
+function calculateScore ({hasReadme, hasGitignore, hasTests}){
+    let score = 0;
+    if (hasReadme) score +=50;
+    if (hasGitignore) score += 30;
+    if (hasTests) score += 20;
+    return score;
+}
 
-// Gera o arquivo JSON
-await fs.writeFile(
-  outputPath,
-  JSON.stringify(analysis, null, 2),
-  'utf-8'
-)
-
-console.log(
-  `\nJSON gerado com sucesso em: ${outputPath}`
-)
+main();
