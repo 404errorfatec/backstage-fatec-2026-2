@@ -1,6 +1,6 @@
 {
     "name": "gestao-operacional",
-    "description": "Plataforma de dados operacionais de produção e operação industrial.",
+    "description": "Plataforma de dados operacionais de produção e operação industrial. Teste de PIPELINE",
     "dependencies": {
         "react": "19.3.0",
         "express": "5.2.1",
