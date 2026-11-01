@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FDFBF5">
+  <title>Acesso Interno | Cidade Sem Buracos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="/painel-assets/painel.css">
+</head>
+<body class="painel-body">
+  <main class="acesso-shell">
+    <section class="acesso-card" aria-labelledby="acesso-title">
+      <div class="painel-brand acesso-brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>Cidade Sem Buracos</strong>
+          <span class="brand-sub">Acesso interno</span>
+        </div>
+      </div>
+
+      <h1 id="acesso-title">Entrar no painel</h1>
+      <p class="acesso-copy">Use as credenciais configuradas no servidor para consultar os registros enviados pela populacao.</p>
+
+      <form id="login-form" class="acesso-form" novalidate>
+        <label class="painel-field">
+          <span>Usuario</span>
+          <input id="username" name="username" type="text" autocomplete="username" required>
+        </label>
+
+        <label class="painel-field">
+          <span>Senha</span>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+
+        <div id="login-feedback" class="painel-feedback" role="status" aria-live="polite"></div>
+
+        <button id="login-button" class="painel-button painel-button-primary painel-button-wide" type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/painel-assets/acesso.js"></script>
+</body>
+</html>

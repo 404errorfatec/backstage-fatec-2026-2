@@ -1,0 +1,11 @@
+{
+  "name": "gestao-estoque",
+  "description": "Protótipo de controle de produção industrial usando conceitos de Lean Manufacturing.",
+  "scripts": {
+    "test": "vitest"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "express": "^4.19.0"
+  }
+}

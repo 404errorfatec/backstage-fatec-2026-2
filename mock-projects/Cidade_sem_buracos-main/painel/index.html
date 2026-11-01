@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FDFBF5">
+  <title>Painel | Cidade Sem Buracos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="/painel-assets/painel.css">
+</head>
+<body class="painel-body">
+  <header class="painel-topbar">
+    <div class="painel-topbar-inner">
+      <div class="painel-brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <strong>Cidade Sem Buracos</strong>
+          <span class="brand-sub">Painel da prefeitura</span>
+        </div>
+      </div>
+      <button id="logout-button" class="painel-button painel-button-ghost painel-button-small" type="button">Sair</button>
+    </div>
+  </header>
+
+  <main class="painel-shell">
+    <section class="painel-intro">
+      <h1>Solicitacoes recebidas</h1>
+      <p class="painel-copy">Registros enviados pela populacao, com foto, localizacao e status de atendimento.</p>
+    </section>
+
+    <section class="painel-summary" aria-label="Resumo dos registros">
+      <article class="summary-card">
+        <p class="summary-label">Total visivel</p>
+        <strong id="summary-total-active">0</strong>
+      </article>
+      <article class="summary-card summary-card-fila">
+        <p class="summary-label">Na fila</p>
+        <strong id="summary-total-na-fila">0</strong>
+      </article>
+      <article class="summary-card summary-card-ok">
+        <p class="summary-label">Atendido</p>
+        <strong id="summary-total-atendido">0</strong>
+      </article>
+      <article class="summary-card summary-card-off">
+        <p class="summary-label">Descartado</p>
+        <strong id="summary-total-descartado">0</strong>
+      </article>
+    </section>
+
+    <section class="painel-toolbar" aria-label="Filtros do painel">
+      <label class="painel-field painel-field-grow">
+        <span>Buscar</span>
+        <input id="search-input" type="search" placeholder="Protocolo ou nome">
+      </label>
+
+      <label class="painel-field">
+        <span>Status</span>
+        <select id="status-filter">
+          <option value="">Todos</option>
+          <option value="na_fila">Na fila</option>
+          <option value="atendido">Atendido</option>
+          <option value="descartado">Descartado</option>
+        </select>
+      </label>
+
+      <button id="refresh-button" class="painel-button painel-button-secondary" type="button">Atualizar</button>
+    </section>
+
+    <section class="painel-table-card">
+      <div class="table-head">
+        <h2>Registros</h2>
+        <div id="table-feedback" class="painel-feedback" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="painel-table">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Protocolo</th>
+              <th>Cidadao</th>
+              <th>Localizacao</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th>Acoes</th>
+            </tr>
+          </thead>
+          <tbody id="reports-table-body">
+            <tr>
+              <td colspan="7" class="table-empty">Carregando registros...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="photo-dialog" class="photo-dialog">
+    <div class="photo-dialog-card">
+      <button id="close-photo-dialog" class="painel-button painel-button-ghost photo-dialog-close" type="button">Fechar</button>
+      <img id="photo-dialog-image" class="photo-dialog-image" alt="Foto ampliada do chamado">
+    </div>
+  </dialog>
+
+  <script src="/painel-assets/painel.js"></script>
+</body>
+</html>
