@@ -26,4 +26,13 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+
+  {
+  // Funções serverless (pasta api/) rodam em Node.js, não no navegador.
+  files: ['api/**/*.js'],
+  languageOptions: {
+    globals: globals.node,
+  },
+},
+
 ])
