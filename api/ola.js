@@ -2,11 +2,28 @@
 // Responde em GET /api/ola?nome=Maria
 
 export default function handler(req, res) {
-  const nome = req.query.nome || 'mundo';
+  if (req.method === "GET") {
+    const nome = req.query.nome || "mundo";
 
-  res.status(200).json({
-    mensagem: `Olá, ${nome}!`,
-    metodo: req.method,
-    hora: new Date().toISOString(),
+    return res.status(200).json({
+      mensagem: `Olá, ${nome}!`,
+      metodo: req.method,
+      hora: new Date().toISOString(),
+    });
+  }
+
+  if (req.method === "POST") {
+    const nome = req.body?.nome || "mundo";
+
+    return res.status(200).json({
+      mensagem: `Olá, ${nome}!`,
+      metodo: req.method,
+      hora: new Date().toISOString(),
+    });
+  }
+
+  res.setHeader("Allow", "GET, POST");
+  return res.status(405).json({
+    erro: "Método não permitido",
   });
 }

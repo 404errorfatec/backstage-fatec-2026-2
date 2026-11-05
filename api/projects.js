@@ -10,9 +10,15 @@ export default function handler(req, res) {
 
   const busca = String(req.query.q || '').trim().toLowerCase();
 
-  const resultado = busca
+  let resultado = busca
     ? projects.filter((p) => JSON.stringify(p).toLowerCase().includes(busca))
     : projects;
+
+  const limite = Number(req.query.limite);
+
+  if (Number.isInteger(limite) && limite > 0) {
+    resultado = resultado.slice(0, limite);
+  }
 
   return res.status(200).json(resultado);
 }

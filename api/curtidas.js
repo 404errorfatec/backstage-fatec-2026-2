@@ -26,7 +26,8 @@ export default async function handler(req, res) {
         SELECT projeto_id, COUNT(*)::int AS total
         FROM curtidas
         GROUP BY projeto_id
-        ORDER BY total DESC`;
+        ORDER BY total DESC
+        LIMIT 5`;
 
       return res.status(200).json(linhas);
     }
