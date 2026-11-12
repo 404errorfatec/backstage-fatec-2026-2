@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const { projeto_id } = req.query;
+      
 
       if (!projeto_id) {
         return res.status(400).json({ erro: 'projeto_id é obrigatório' });

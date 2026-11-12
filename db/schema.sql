@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS curtidas (
  criado_em TIMESTAMPTZ NOT NULL DEFAULT now(),
  UNIQUE (projeto_id, autor)
 );
+
 CREATE TABLE IF NOT EXISTS comentarios (
  id SERIAL PRIMARY KEY,
  projeto_id TEXT NOT NULL,

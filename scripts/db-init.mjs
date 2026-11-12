@@ -23,4 +23,5 @@ for (const comando of comandos) {
   console.log('OK:', comando.split('\n')[0]);
 }
 
+
 console.log('Banco pronto.');

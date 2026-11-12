@@ -9,6 +9,7 @@ const outputPath = path.join(
   'project-analysis.json'
 )
 
+
 // Percorre uma pasta e todas as suas subpastas
 async function getFiles(directory) {
   const entries = await fs.readdir(directory, {

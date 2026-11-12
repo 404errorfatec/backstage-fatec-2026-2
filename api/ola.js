@@ -8,4 +8,5 @@ export default function handler(req, res) {
         metodo: req.method,
         hora: new Date().toISOString(),
     });
+    
 }

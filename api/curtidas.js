@@ -32,6 +32,7 @@ export default async function handler(req, res) {
       if (!projeto_id || !autor) {
         return res.status(400).json({ erro: 'projeto_id e autor são obrigatórios' });
       }
+      
       if (String(autor).length > 60) {
         return res.status(400).json({ erro: 'autor deve ter no máximo 60 caracteres' });
       }

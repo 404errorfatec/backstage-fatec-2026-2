@@ -14,4 +14,5 @@ export default function handler(req, res) {
         : projects;
         
     return res.status(200).json(resultado);
+    
 }
