@@ -8,11 +8,11 @@ if (!process.env.DATABASE_URL) {
   process.exit(1);
 }
 
-const sql = neon(process.env.DATABASE_URL);
+const { sql } = await import('../api/_lib/db.js')
 const arquivo = new URL('../db/schema.sql', import.meta.url);
 const conteudo = await readFile(arquivo, 'utf8');
 
-// O driver HTTP executa um comando por vez, então separamos por ponto e vírgula.
+// Executamos um comando por vez, então separamos por ponto e vírgula.
 const comandos = conteudo
   .split(';')
   .map((c) => c.trim())
@@ -25,3 +25,4 @@ for (const comando of comandos) {
 
 
 console.log('Banco pronto.');
+process.exit(0)
