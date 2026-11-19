@@ -3,16 +3,15 @@
 import projects from '../src/data/projects.json' with { type: 'json' };
 
 export default function handler(req, res) {
-    if (req.method !== 'GET') {
-        return res.status(405).json({ erro: 'Método não permitido' });
-    }
+  if (req.method !== 'GET') {
+    return res.status(405).json({ erro: 'Método não permitido' });
+  }
 
-    const busca = String(req.query.q || '').trim().toLowerCase();
+  const busca = String(req.query.q || '').trim().toLowerCase();
 
-    const resultado = busca
-        ? projects.filter((p) => JSON.stringify(p).toLowerCase().includes(busca))
-        : projects;
-        
-    return res.status(200).json(resultado);
-    
+  const resultado = busca
+    ? projects.filter((p) => JSON.stringify(p).toLowerCase().includes(busca))
+    : projects;
+
+  return res.status(200).json(resultado);
 }
