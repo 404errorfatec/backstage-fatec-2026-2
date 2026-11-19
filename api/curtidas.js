@@ -16,10 +16,11 @@ WHERE projeto_id = ${String(projeto_id)}`;
         return res.status(200).json({ projeto_id, total: linha.total });
       }
       const linhas = await sql`
-SELECT projeto_id, COUNT(*)::int AS total
-FROM curtidas
-GROUP BY projeto_id
-ORDER BY total DESC`;
+  SELECT projeto_id, COUNT(*)::int AS total
+  FROM curtidas
+  GROUP BY projeto_id
+  ORDER BY total DESC
+  LIMIT 5`;
       return res.status(200).json(linhas);
     }
     if (req.method === "POST") {

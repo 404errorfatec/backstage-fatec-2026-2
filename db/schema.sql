@@ -12,3 +12,11 @@ autor TEXT NOT NULL,
 texto TEXT NOT NULL,
 criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
 );  
+CREATE TABLE IF NOT EXISTS avaliacoes (
+  id SERIAL PRIMARY KEY,
+  projeto_id TEXT NOT NULL,
+  autor TEXT NOT NULL,
+  nota INTEGER NOT NULL CHECK (nota BETWEEN 1 AND 5),
+  criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_avaliacoes_projeto ON avaliacoes (projeto_id);
