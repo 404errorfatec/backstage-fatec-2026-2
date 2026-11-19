@@ -32,6 +32,28 @@ Para atualizar os dados do catálogo a partir das pastas de exemplo:
 npm run scan
 ```
 
+## Backend e banco de dados
+
+As funções serverless ficam em `api/` e usam Postgres para curtidas e comentários.
+
+1. Copie `.env.example` para `.env.local` e preencha `DATABASE_URL` e `ADMIN_KEY`.
+2. Escolha o banco:
+   - **Neon:** use a string de conexão do painel.
+   - **Postgres local:** `docker compose up -d` e use
+     `postgresql://postgres:senha123@localhost:5432/fatec`.
+3. Crie as tabelas:
+
+```bash
+npm run db:init
+```
+
+Endpoints disponíveis:
+
+- `GET /api/ola?nome=Maria`
+- `GET /api/projects?q=react`
+- `GET|POST|DELETE /api/curtidas`
+- `GET|POST|DELETE /api/comentarios` (DELETE exige o header `x-admin-key`)
+
 ## Participantes
 
 - Luciano Souza Peixoto
